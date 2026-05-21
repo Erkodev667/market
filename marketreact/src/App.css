@@ -1,13 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&family=Outfit:wght@300;600;900&display=swap");
+/* Подключаем современные читаемые шрифты */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap');
 
-/* Сброс всех системных отступов */
-html,
-body {
+/* ГЛОБАЛЬНЫЙ СБРОС — убирает любые полосы, рамки и отступы браузера */
+html, body {
   margin: 0 !important;
   padding: 0 !important;
-  background-color: #0a0a0a;
-  color: #ffffff;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  width: 100%;
+  height: 100%;
+  background-color: #f6f6f9; /* Приятный мягкий светлый фон */
+  color: #1a1a1a;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -15,182 +17,223 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  text-decoration: none;
+  text-decoration: none !important;
   list-style: none;
+  outline: none;
 }
 
-:root {
-  --accent: #e5ff00; /* Трендовый лимонный или замени на #d4af37 (золото) */
-  --card-bg: #141414;
-  --soft-border: rgba(255, 255, 255, 0.1);
-  --text-main: #ffffff;
-  --text-secondary: #a1a1a1;
-}
-
-/* --- НАВИГАЦИЯ --- */
+/* --- НАВИГАЦИЯ (Минимализм) --- */
 .nav {
   display: flex;
-  justify-content: space-between; /* Распределяем по краям */
+  justify-content: space-between;
   align-items: center;
-  padding: 0 5%;
-  height: 90px;
-  background: rgba(10, 10, 10, 0.8);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--soft-border);
+  padding: 0 10%;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px); /* Эффект размытого стекла */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
 .nav a {
-  color: var(--text-main);
-  font-family: "Outfit", sans-serif;
+  color: #1a1a1a;
   font-weight: 600;
-  font-size: 1.1rem;
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0.7;
+  font-size: 16px;
+  transition: color 0.25s ease;
 }
 
 .nav a:hover {
-  opacity: 1;
-  letter-spacing: 1px;
+  color: #6366f1; /* Элегантный индиго-акцент при наведении */
 }
 
-/* --- СЕТКА ТОВАРОВ --- */
+/* --- СТРАНИЦЫ И СЕТКА --- */
+.page {
+  padding: 50px 10%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 40px;
+  color: #1a1a1a;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-  padding: 60px 5%;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
 }
 
-/* --- КАРТОЧКА (Modern UI) --- */
+/* --- СТИЛЬНАЯ КАРТОЧКА ТОВАРА --- */
 .card {
-  background: var(--card-bg);
-  padding: 12px; /* Внутренний отступ для эффекта рамки */
-  border-radius: 40px 15px 40px 15px; /* Разные округления как ты просил */
-  border: 1px solid var(--soft-border);
-  transition: all 0.5s ease;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  border-radius: 20px; /* Приятное классическое скругление */
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.4s ease;
 }
 
+/* Эффект всплытия карточки при наведении */
 .card:hover {
-  transform: translateY(-10px) scale(1.02);
-  border-color: var(--accent);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-6px);
+  border-color: rgba(99, 102, 241, 0.2);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.06);
 }
 
+/* Контейнер для фото одежды */
 .image-container {
   width: 100%;
-  height: 380px;
+  height: 340px;
   overflow: hidden;
-  border-radius: 32px 10px 32px 10px; /* Сочетается с формой карточки */
+  border-radius: 14px;
+  background-color: #f3f4f6;
 }
 
 .product-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block; /* Убирает микро-полоску под картинкой */
-  transition: 0.8s ease;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Плавный зум картинки при наведении на карточку */
 .card:hover .product-img {
-  transform: scale(1.1);
+  transform: scale(1.04);
 }
 
 .name {
-  font-family: "Outfit", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 20px 10px 5px;
-  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 16px 4px 6px;
+  color: #1a1a1a;
 }
 
 .descr {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  margin: 0 10px 20px;
-  line-height: 1.4;
+  font-size: 14px;
+  color: #6b7280; /* Спокойный серый цвет для описания */
+  margin: 0 4px 20px;
+  line-height: 1.5;
+  flex-grow: 1;
 }
 
+/* Нижняя панель внутри карточки */
 .bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px 10px;
+  padding: 0 4px 4px;
   margin-top: auto;
 }
 
 .price {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--text-main);
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
 }
 
-/* --- КНОПКА (Stylish) --- */
+/* --- КНОПКИ --- */
 .btn {
-  background: var(--text-main);
-  color: #000;
-  padding: 12px 24px;
-  border-radius: 50px; /* Полностью круглая кнопка */
-  font-weight: 700;
+  background: #1a1a1a;
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 12px; /* Аккуратное скругление кнопок */
+  font-weight: 600;
+  font-size: 14px;
   border: none;
   cursor: pointer;
-  transition: 0.3s ease;
-  font-size: 0.9rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
 }
 
 .btn:hover {
-  background: var(--accent);
-  transform: rotate(-2deg); /* Маленькая игривая анимация */
+  background: #6366f1; /* Кнопка становится цветной при наведении */
+  transform: scale(1.02);
 }
 
-/* --- ЗАГОЛОВКИ СТРАНИЦ --- */
-.title {
-  font-family: "Outfit", sans-serif;
-  font-size: 4rem;
-  font-weight: 900;
-  text-align: center;
-  margin-top: 40px;
-  background: linear-gradient(to bottom, #fff, #444);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Автоматическая перекраска кнопки "Удалить" в админке */
+.edit-form .btn[style*="background: rgb(239, 68, 68)"],
+.edit-form .btn:last-child {
+  background: #fef2f2 !important;
+  color: #ef4444 !important;
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  margin-top: 12px !important;
 }
 
-/* --- ФОРМЫ (Add/Edit) --- */
+.edit-form .btn[style*="background: rgb(239, 68, 68)"]:hover,
+.edit-form .btn:last-child:hover {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+/* --- КРАСИВЫЕ ФОРМЫ (Add / Edit) --- */
 .edit-form {
-  max-width: 550px;
+  max-width: 480px;
   margin: 50px auto;
-  background: #111;
-  padding: 50px;
-  border-radius: 30px;
-  border: 1px solid var(--soft-border);
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
 }
 
-input,
-textarea {
+.edit-form h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+input, textarea {
   width: 100%;
-  background: #000;
-  border: 1px solid var(--soft-border);
-  padding: 18px;
-  border-radius: 15px;
-  color: #fff;
-  margin-bottom: 20px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 14px 18px;
+  border-radius: 12px;
+  color: #1a1a1a;
   font-family: inherit;
-  transition: 0.3s;
+  font-size: 14px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
 }
 
-input:focus {
-  border-color: var(--accent);
+input:focus, textarea:focus {
+  background: #ffffff;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
-/* Прячем полосы прокрутки для красоты */
+textarea {
+  min-height: 110px;
+  resize: none;
+}
+
+/* Кастомный тонкий скроллбар */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f6f6f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--soft-border);
+  background: #e5e7eb;
   border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d1d5db;
 }

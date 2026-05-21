@@ -21,7 +21,7 @@ const AddPage = ({ onAdd }) => {
 
     onAdd(productWithId);
 
-    navigate("/admin");
+    navigate("/");
   };
 
   return (

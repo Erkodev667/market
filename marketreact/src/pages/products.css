@@ -1,87 +1,124 @@
+/* Подключаем премиальный геометрический шрифт с нужной жирностью */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800;900&family=Inter:wght@400;500;600&display=swap');
+
 :root {
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --bg: #f8fafc;
-  --card-bg: #ffffff;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --radius: 12px;
+  --primary: #4f46e5;         /* Красивый насыщенный индиго */
+  --primary-hover: #4338ca;   /* Темный индиго для наведения */
+  --bg: #f8fafc;              /* Мягкий светлый фон */
+  --card-bg: #ffffff;         /* Чисто белый для карточек */
+  --text-main: #000000 !important; /* ЖЕСТКИЙ ЧИСТЫЙ ЧЕРНЫЙ ЦВЕТ ДЛЯ ВСЕГО */
+  --text-muted: #64748b;      /* Серый для описаний */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 20px 35px rgba(79, 70, 229, 0.08); 
+  --radius: 20px;             
 }
 
-body {
+/* 1. ЖЕСТКИЙ СБРОС — убирает любые рамки и полоски прокрутки */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  height: 100%;
   background-color: var(--bg);
-  color: var(--text-main);
-  font-family: "Inter", sans-serif;
+  color: #000000 !important;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  text-decoration: none !important;
+  list-style: none;
+  outline: none;
 }
 
-nav {
+/* 2. ТОТАЛЬНОЕ УНИЧТОЖЕНИЕ ТУСКЛОСТИ ДЛЯ ВСЕХ ЗАГОЛОВКОВ */
+h1, h2, h3, h4, h5, h6, .name, [class*="name"] {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  color: #000000 !important;       /* Абсолютный черный цвет, никакой серости */
+  font-weight: 900 !important;    /* Максимально возможная жирность текста */
+  opacity: 1 !important;          /* Убираем любую прозрачность, если она была */
+  letter-spacing: -0.5px !important;
+}
+
+/* --- НАВИГАЦИЯ (Эффект стекла) --- */
+nav, .nav {
   display: flex;
-  justify-content: center;
-  gap: 15px;
-  padding: 20px;
-  background: var(--card-bg);
-  box-shadow: var(--shadow);
-  margin-bottom: 30px;
-}
-
-button {
-  cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-nav button {
-  background: transparent;
-  color: var(--text-muted);
-}
-
-nav button:hover {
-  color: var(--primary);
-}
-
-.page {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.title {
-  text-align: center;
-  font-size: 2.5rem;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 0 10%;
+  height: 85px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);  
+  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
   margin-bottom: 40px;
-  color: var(--text-main);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
+nav a, nav button {
+  color: #000000 !important;
+  font-weight: 800 !important;
+  font-size: 16px;
+  transition: all 0.25s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+nav a:hover, nav button:hover {
+  color: var(--primary) !important;
+  transform: translateY(-1px);
+}
+
+/* --- КОНТЕЙНЕРЫ И ЗАГОЛОВКИ СТРАНИЦ --- */
+.page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 5% 50px;
+}
+
+/* Большие заголовки страниц */
+.title {
+  text-align: left; 
+  font-size: 2.5rem !important;
+  margin-bottom: 40px;
+}
+
+/* --- СТРАНИЦЫ И СЕТКА --- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 30px;
 }
 
+/* --- КАРТОЧКА --- */
 .card {
   background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 20px;
-  box-shadow: var(--shadow);
+  padding: 16px; 
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.4s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  border-color: rgba(79, 70, 229, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
-.name {
-  font-size: 1.25rem;
-  margin: 0 0 10px 0;
+/* Точечная настройка имени внутри карточки */
+.name, h2.name, h3.name {
+  font-size: 1.4rem !important;
+  margin: 15px 4px 6px 4px !important;
 }
 
 .descr {
@@ -89,70 +126,132 @@ nav button:hover {
   font-size: 0.95rem;
   line-height: 1.5;
   flex-grow: 1;
-  margin-bottom: 20px;
+  margin: 0 4px 20px 4px;
 }
 
-.bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #f1f5f9;
-  padding-top: 15px;
-}
-
-.price {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--primary);
-}
-
-.btn {
-  background: var(--primary);
-  color: white;
-}
-
-.btn:hover {
-  background: var(--primary-hover);
-}
-
-.edit-form {
-  max-width: 500px;
-  margin: 0 auto;
-  background: var(--card-bg);
-  padding: 30px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-input,
-textarea {
-  padding: 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-input:focus,
-textarea:focus {
-  border-color: var(--primary);
-}
-
+/* Контейнер картинки */
 .image-container {
   width: 100%;
-  height: 180px;
+  height: 320px; 
   overflow: hidden;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  background: #eee;
+  border-radius: calc(var(--radius) - 6px); 
+  background: #f1f5f9;
+  position: relative;
 }
 
 .product-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .product-img {
+  transform: scale(1.04);
+}
+
+/* Нижняя часть карточки */
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f1f5f9;
+  padding: 15px 4px 4px 4px;
+}
+
+.price {
+  font-size: 1.35rem !important;
+  color: #000000 !important;
+}
+
+/* --- КНОПКИ --- */
+button, .btn {
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700 !important;
+  font-size: 14px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn {
+  background: #000000;
+  color: white !important;
+}
+
+.btn:hover {
+  background: var(--primary);
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+}
+
+/* Перекраска кнопок удаления (в EditPage) */
+.edit-form button[style*="background: rgb(239, 68, 68)"],
+.edit-form button:last-child {
+  background: #fff5f5 !important;
+  color: #ef4444 !important;
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+.edit-form button[style*="background: rgb(239, 68, 68)"]:hover,
+.edit-form button:last-child:hover {
+  background: #ef4444 !important;
+  color: white !important;
+}
+
+/* --- ФОРМЫ (Add / Edit) --- */
+.edit-form {
+  max-width: 480px;
+  margin: 40px auto;
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.edit-form h2 {
+  font-size: 1.6rem !important;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #000000;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus {
+  background: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+/* Тонкий аккуратный скроллбар сайта */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
 }

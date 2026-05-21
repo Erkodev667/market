@@ -6,25 +6,24 @@ import AddPage from "./pages/AddPage";
 import UserPage from "./pages/UserPage";
 import initialProducts from "./modals/products";
 import "./App.css";
+import "./pages/products.css";
 
 export default function App() {
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState(()=> {
+    const savedProducts =localStorage.getItem
+  });
+  
 
-  // 1. Добавление товара
   const addProduct = (newProduct) => {
     setProducts([...products, newProduct]);
   };
 
-  // 2. Обновление товара
   const updateProduct = (updatedItem) => {
     setProducts(
       products.map((p) => (p.id === updatedItem.id ? updatedItem : p)),
     );
-    // Вместо setPage тут теперь просто логика сохранения,
-    // редирект сделаем внутри EditPage через useNavigate
   };
 
-  // 3. Удаление товара
   const deleteProducts = (id) => {
     setProducts(products.filter((p) => p.id !== id));
   };
