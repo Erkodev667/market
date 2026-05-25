@@ -1,239 +1,191 @@
-/* Подключаем современные читаемые шрифты */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
 
-/* ГЛОБАЛЬНЫЙ СБРОС — убирает любые полосы, рамки и отступы браузера */
-html, body {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100%;
-  height: 100%;
-  background-color: #f6f6f9; /* Приятный мягкий светлый фон */
-  color: #1a1a1a;
-  font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
+/* ─── DESIGN TOKENS ─── */
+:root {
+  --bg:         #0d0f14;
+  --surface:    #13161d;
+  --surface-2:  #1a1e28;
+  --border:     rgba(255,255,255,0.07);
+  --border-2:   rgba(255,255,255,0.12);
+
+  --gold:       #e8b86d;
+  --gold-light: #f0cc94;
+  --gold-dim:   rgba(232,184,109,0.15);
+  --gold-glow:  rgba(232,184,109,0.25);
+
+  --text:       #f0ede8;
+  --text-muted: #7c8290;
+  --text-soft:  #a8adb8;
+
+  --radius-sm:  10px;
+  --radius-md:  18px;
+  --radius-lg:  28px;
+
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-* {
+/* ─── RESET ─── */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  text-decoration: none !important;
-  list-style: none;
-  outline: none;
 }
 
-/* --- НАВИГАЦИЯ (Минимализм) --- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(232,184,109,0.08) 0%, transparent 60%),
+          radial-gradient(ellipse 40% 30% at 90% 80%, rgba(99,102,241,0.05) 0%, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, li {
+  list-style: none;
+}
+
+button {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-2); }
+
+/* ─── NAVIGATION ─── */
 .nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10%;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px); /* Эффект размытого стекла */
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   position: sticky;
   top: 0;
-  z-index: 1000;
-}
-
-.nav a {
-  color: #1a1a1a;
-  font-weight: 600;
-  font-size: 16px;
-  transition: color 0.25s ease;
-}
-
-.nav a:hover {
-  color: #6366f1; /* Элегантный индиго-акцент при наведении */
-}
-
-/* --- СТРАНИЦЫ И СЕТКА --- */
-.page {
-  padding: 50px 10%;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.title {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  margin-bottom: 40px;
-  color: #1a1a1a;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 30px;
-}
-
-/* --- СТИЛЬНАЯ КАРТОЧКА ТОВАРА --- */
-.card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 16px;
-  border-radius: 20px; /* Приятное классическое скругление */
+  z-index: 100;
   display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.4s ease;
-}
-
-/* Эффект всплытия карточки при наведении */
-.card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(99, 102, 241, 0.2);
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.06);
-}
-
-/* Контейнер для фото одежды */
-.image-container {
-  width: 100%;
-  height: 340px;
-  overflow: hidden;
-  border-radius: 14px;
-  background-color: #f3f4f6;
-}
-
-.product-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Плавный зум картинки при наведении на карточку */
-.card:hover .product-img {
-  transform: scale(1.04);
-}
-
-.name {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  margin: 16px 4px 6px;
-  color: #1a1a1a;
-}
-
-.descr {
-  font-size: 14px;
-  color: #6b7280; /* Спокойный серый цвет для описания */
-  margin: 0 4px 20px;
-  line-height: 1.5;
-  flex-grow: 1;
-}
-
-/* Нижняя панель внутри карточки */
-.bottom {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 4px 4px;
-  margin-top: auto;
+  justify-content: space-between;
+  padding: 0 8%;
+  height: 72px;
+  background: rgba(13, 15, 20, 0.8);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border);
 }
 
-.price {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1a1a1a;
+.nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
 }
 
-/* --- КНОПКИ --- */
-.btn {
-  background: #1a1a1a;
-  color: #ffffff;
-  padding: 10px 22px;
-  border-radius: 12px; /* Аккуратное скругление кнопок */
+.nav-brand {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  transition: color 0.2s ease;
+}
+
+.nav-brand:hover { color: var(--gold); }
+
+.nav-brand span {
+  color: var(--gold);
+}
+
+.nav-add {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(232,184,109,0.3);
+  border-radius: var(--radius-sm);
+  color: var(--gold);
+  font-family: 'Syne', sans-serif;
   font-weight: 600;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s ease;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  transition: all 0.25s var(--ease-out);
 }
 
-.btn:hover {
-  background: #6366f1; /* Кнопка становится цветной при наведении */
-  transform: scale(1.02);
+.nav-add:hover {
+  background: var(--gold);
+  color: var(--bg);
+  box-shadow: 0 0 20px var(--gold-glow);
+  transform: translateY(-1px);
 }
 
-/* Автоматическая перекраска кнопки "Удалить" в админке */
-.edit-form .btn[style*="background: rgb(239, 68, 68)"],
-.edit-form .btn:last-child {
-  background: #fef2f2 !important;
-  color: #ef4444 !important;
-  border: 1px solid rgba(239, 68, 68, 0.15);
-  margin-top: 12px !important;
+/* ─── PAGE WRAPPER ─── */
+main {
+  min-height: calc(100vh - 72px);
 }
 
-.edit-form .btn[style*="background: rgb(239, 68, 68)"]:hover,
-.edit-form .btn:last-child:hover {
-  background: #ef4444 !important;
-  color: #ffffff !important;
-}
-
-/* --- КРАСИВЫЕ ФОРМЫ (Add / Edit) --- */
-.edit-form {
-  max-width: 480px;
-  margin: 50px auto;
-  background: #ffffff;
-  padding: 40px;
-  border-radius: 24px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+/* ─── TOAST NOTIFICATIONS ─── */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+  pointer-events: none;
 }
 
-.edit-form h2 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  text-align: center;
-}
-
-input, textarea {
-  width: 100%;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  padding: 14px 18px;
-  border-radius: 12px;
-  color: #1a1a1a;
-  font-family: inherit;
+.toast-notification {
+  background: var(--surface-2);
+  color: var(--text);
+  border-left: 3px solid var(--gold);
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
-  margin-bottom: 16px;
-  transition: all 0.2s ease;
+  font-weight: 500;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+
+  /* Эффект свечения в тему твоего дизайна */
+  box-shadow: 0 0 20px rgba(232, 184, 109, 0.1);
+
+  /* Запуск анимаций: появление и последующее исчезновение */
+  animation: toastFadeIn 0.35s var(--ease-spring) forwards,
+  toastFadeOut 0.4s ease 2.6s forwards;
 }
 
-input:focus, textarea:focus {
-  background: #ffffff;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+@keyframes toastFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
 }
 
-textarea {
-  min-height: 110px;
-  resize: none;
-}
-
-/* Кастомный тонкий скроллбар */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #f6f6f9;
-}
-::-webkit-scrollbar-thumb {
-  background: #e5e7eb;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #d1d5db;
+@keyframes toastFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+    margin-bottom: -50px; /* Чтобы нижние уведомления плавно съезжали вверх */
+  }
 }

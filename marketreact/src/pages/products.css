@@ -1,142 +1,119 @@
-/* Подключаем премиальный геометрический шрифт с нужной жирностью */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800;900&family=Inter:wght@400;500;600&display=swap');
+/* products.css — component styles */
 
-:root {
-  --primary: #4f46e5;         /* Красивый насыщенный индиго */
-  --primary-hover: #4338ca;   /* Темный индиго для наведения */
-  --bg: #f8fafc;              /* Мягкий светлый фон */
-  --card-bg: #ffffff;         /* Чисто белый для карточек */
-  --text-main: #000000 !important; /* ЖЕСТКИЙ ЧИСТЫЙ ЧЕРНЫЙ ЦВЕТ ДЛЯ ВСЕГО */
-  --text-muted: #64748b;      /* Серый для описаний */
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 20px 35px rgba(79, 70, 229, 0.08); 
-  --radius: 20px;             
+/* ─── PAGE ─── */
+.page {
+  padding: 60px 8%;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
-/* 1. ЖЕСТКИЙ СБРОС — убирает любые рамки и полоски прокрутки */
-html, body {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100%;
-  height: 100%;
-  background-color: var(--bg);
-  color: #000000 !important;
-  font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
+/* ─── SECTION TITLE ─── */
+.title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -1.5px;
+  margin-bottom: 8px;
+  line-height: 1;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration: none !important;
-  list-style: none;
-  outline: none;
+.title-accent {
+  color: var(--gold);
+  font-style: italic;
 }
 
-/* 2. ТОТАЛЬНОЕ УНИЧТОЖЕНИЕ ТУСКЛОСТИ ДЛЯ ВСЕХ ЗАГОЛОВКОВ */
-h1, h2, h3, h4, h5, h6, .name, [class*="name"] {
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
-  color: #000000 !important;       /* Абсолютный черный цвет, никакой серости */
-  font-weight: 900 !important;    /* Максимально возможная жирность текста */
-  opacity: 1 !important;          /* Убираем любую прозрачность, если она была */
-  letter-spacing: -0.5px !important;
+.page-subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+  font-weight: 300;
 }
 
-/* --- НАВИГАЦИЯ (Эффект стекла) --- */
-nav, .nav {
+/* ─── GRID ─── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* ─── EMPTY STATE ─── */
+.empty-state {
+  grid-column: 1 / -1;
   display: flex;
-  justify-content: space-between; 
+  flex-direction: column;
   align-items: center;
-  padding: 0 10%;
-  height: 85px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);  
-  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
-  margin-bottom: 40px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  justify-content: center;
+  gap: 12px;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  font-size: 15px;
+  text-align: center;
 }
 
-nav a, nav button {
-  color: #000000 !important;
-  font-weight: 800 !important;
-  font-size: 16px;
-  transition: all 0.25s ease;
-  background: transparent;
-  border: none;
+.empty-state-icon {
+  font-size: 48px;
+  opacity: 0.4;
+  margin-bottom: 8px;
+}
+
+/* ─── PRODUCT CARD ─── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition:
+          transform 0.45s var(--ease-spring),
+          box-shadow 0.45s var(--ease-spring),
+          border-color 0.3s ease;
   cursor: pointer;
 }
 
-nav a:hover, nav button:hover {
-  color: var(--primary) !important;
-  transform: translateY(-1px);
-}
-
-/* --- КОНТЕЙНЕРЫ И ЗАГОЛОВКИ СТРАНИЦ --- */
-.page {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 5% 50px;
-}
-
-/* Большие заголовки страниц */
-.title {
-  text-align: left; 
-  font-size: 2.5rem !important;
-  margin-bottom: 40px;
-}
-
-/* --- СТРАНИЦЫ И СЕТКА --- */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 30px;
-}
-
-/* --- КАРТОЧКА --- */
-.card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 16px; 
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.4s ease;
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(232,184,109,0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(79, 70, 229, 0.2);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-8px);
+  border-color: rgba(232,184,109,0.25);
+  box-shadow:
+          0 20px 50px rgba(0,0,0,0.4),
+          0 0 0 1px rgba(232,184,109,0.1),
+          0 0 60px rgba(232,184,109,0.06);
 }
 
-/* Точечная настройка имени внутри карточки */
-.name, h2.name, h3.name {
-  font-size: 1.4rem !important;
-  margin: 15px 4px 6px 4px !important;
-}
+.card:hover::before { opacity: 1; }
 
-.descr {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  flex-grow: 1;
-  margin: 0 4px 20px 4px;
-}
-
-/* Контейнер картинки */
+/* Image */
 .image-container {
   width: 100%;
-  height: 320px; 
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: calc(var(--radius) - 6px); 
-  background: #f1f5f9;
+  background: var(--surface-2);
   position: relative;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  opacity: 0.2;
+  background: linear-gradient(135deg, var(--surface-2) 0%, var(--bg) 100%);
 }
 
 .product-img {
@@ -144,114 +121,329 @@ nav a:hover, nav button:hover {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.6s var(--ease-spring);
 }
 
-.card:hover .product-img {
-  transform: scale(1.04);
+.card:hover .product-img { transform: scale(1.07); }
+
+/* Card body */
+.card-body {
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-/* Нижняя часть карточки */
+.name {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+  letter-spacing: -0.2px;
+}
+
+.descr {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 20px;
+  font-weight: 300;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #f1f5f9;
-  padding: 15px 4px 4px 4px;
+  margin-top: auto;
+  gap: 12px;
 }
 
 .price {
-  font-size: 1.35rem !important;
-  color: #000000 !important;
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: var(--gold);
+  letter-spacing: -0.5px;
 }
 
-/* --- КНОПКИ --- */
-button, .btn {
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  padding: 12px 24px;
-  border-radius: 12px;
-  border: none;
-  font-weight: 700 !important;
-  font-size: 14px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+.price-currency {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-left: 2px;
+  font-weight: 400;
 }
 
-.btn {
-  background: #000000;
-  color: white !important;
+/* Admin card (no image) */
+.card-admin .card-body {
+  padding: 24px;
 }
 
-.btn:hover {
-  background: var(--primary);
-  transform: scale(1.02);
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
-}
-
-/* Перекраска кнопок удаления (в EditPage) */
-.edit-form button[style*="background: rgb(239, 68, 68)"],
-.edit-form button:last-child {
-  background: #fff5f5 !important;
-  color: #ef4444 !important;
-  border: 1px solid rgba(239, 68, 68, 0.15);
-}
-.edit-form button[style*="background: rgb(239, 68, 68)"]:hover,
-.edit-form button:last-child:hover {
-  background: #ef4444 !important;
-  color: white !important;
-}
-
-/* --- ФОРМЫ (Add / Edit) --- */
-.edit-form {
-  max-width: 480px;
-  margin: 40px auto;
-  background: var(--card-bg);
-  padding: 40px;
-  border-radius: 24px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.02);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.edit-form h2 {
-  font-size: 1.6rem !important;
-  text-align: center;
+.card-admin .name {
+  font-size: 18px;
   margin-bottom: 10px;
 }
 
-input, textarea {
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Primary */
+.btn-primary, .btn:not(.btn-secondary):not(.btn-danger):not(.btn-ghost) {
+  background: var(--gold);
+  color: #0d0f14;
+}
+.btn-primary:hover, .btn:not(.btn-secondary):not(.btn-danger):not(.btn-ghost):hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px var(--gold-glow);
+}
+
+/* Secondary */
+.btn-secondary {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border-2);
+}
+.btn-secondary:hover {
+  border-color: rgba(232,184,109,0.4);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* Danger */
+.btn-danger {
+  background: rgba(239,68,68,0.1) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(239,68,68,0.2) !important;
+}
+.btn-danger:hover {
+  background: rgba(239,68,68,0.2) !important;
+  box-shadow: 0 0 20px rgba(239,68,68,0.15) !important;
+}
+
+/* Full width */
+.btn-full { width: 100%; }
+
+/* ─── FORMS ─── */
+.form-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 8%;
+  min-height: calc(100vh - 72px);
+}
+
+.edit-form {
   width: 100%;
+  max-width: 500px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 48px 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+.edit-form::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.edit-form h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 32px;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+/* Field groups */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.field-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+input, textarea, select {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border-2);
   padding: 14px 18px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
   font-size: 15px;
-  color: #000000;
-  font-family: inherit;
+  font-weight: 300;
   transition: all 0.2s ease;
+  margin-bottom: 16px;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
+  font-weight: 300;
 }
 
 input:focus, textarea:focus {
-  background: #ffffff;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+  outline: none;
+  background: var(--surface-2);
+  border-color: rgba(232,184,109,0.5);
+  box-shadow: 0 0 0 3px rgba(232,184,109,0.1);
 }
 
 textarea {
-  min-height: 120px;
+  min-height: 110px;
   resize: none;
+  line-height: 1.6;
 }
 
-/* Тонкий аккуратный скроллбар сайта */
-::-webkit-scrollbar {
-  width: 8px;
+.form-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0 24px;
 }
-::-webkit-scrollbar-track {
-  background: var(--bg);
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
 }
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
+
+/* ─── "NOT FOUND" STATE ─── */
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 100px 20px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.not-found-icon {
+  font-size: 52px;
+  opacity: 0.3;
+}
+
+.not-found h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: var(--text-soft);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page {
+  animation: fadeInUp 0.45s var(--ease-spring) both;
+}
+
+.card {
+  animation: fadeInUp 0.5s var(--ease-spring) both;
+}
+
+.card:nth-child(1)  { animation-delay: 0.05s; }
+.card:nth-child(2)  { animation-delay: 0.10s; }
+.card:nth-child(3)  { animation-delay: 0.15s; }
+.card:nth-child(4)  { animation-delay: 0.20s; }
+.card:nth-child(5)  { animation-delay: 0.25s; }
+.card:nth-child(6)  { animation-delay: 0.30s; }
+.card:nth-child(7)  { animation-delay: 0.35s; }
+.card:nth-child(8)  { animation-delay: 0.40s; }
+
+.edit-form {
+  animation: fadeInUp 0.4s var(--ease-spring) both;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .page { padding: 40px 5%; }
+  .form-page { padding: 30px 5%; }
+  .edit-form { padding: 32px 28px; }
+  .nav { padding: 0 5%; }
+  .grid { gap: 16px; }
+}
+
+@media (max-width: 480px) {
+  .edit-form { padding: 28px 20px; }
+  .title { font-size: 32px; }
+}
+
+/* ─── SHAKE (для неверного пароля) ─── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-5px); }
+  80%       { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.45s var(--ease-out) both;
 }
